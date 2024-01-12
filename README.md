@@ -161,30 +161,26 @@ sns.pairplot(X_numerical)
 <p align="center">
   <img src="Screenshot 2024-01-12 180450.png">
 </p>
-[ ]
-  1
+
 sns.heatmap(X_numerical.corr(), annot =True)
 <p align="center">
   <img src="Screenshot 2024-01-11 142017.png">
 </p>
 
 ## V) CREATE TRAINING AND TESTING DATASET
-[ ]
-  1
+
 X_cat = bike[['season', 'yr', 'mnth', 'holiday', 'weekday', 'workingday', 'weathersit']]
-[ ]
-  1
+
 X_cat
 <p align="center">
-  <img src="NLP1.png">
+  <img src="Screenshot 2024-01-11 142547.png">
 </p>
 
 
 from sklearn.preprocessing import OneHotEncoder
 onehotencoder = OneHotEncoder()
 X_cat = onehotencoder.fit_transform(X_cat).toarray()
-[ ]
-  1
+
 X_cat.shape
 
 (731, 32)
