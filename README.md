@@ -16,128 +16,81 @@ In pursuit of enhancing bike rental management, this project focuses on predicti
 
 ### Data Reference:
 
-### SuperDataScience
-Laboratory of Artificial Intelligence and Decision Support (LIAAD), University of Porto INESC Porto, Campus da FEUP Rua Dr. Roberto Frias, 378 4200 - 465 Porto, Portugal
-Data Description:
+1. SuperDataScience
+2. Laboratory of Artificial Intelligence and Decision Support (LIAAD), University of Porto INESC Porto, Campus da FEUP Rua Dr. Roberto Frias, 378 4200 - 465 Porto, Portugal
 
-instant: record index
-dteday : date
-season : season (1:springer, 2:summer, 3:fall, 4:winter)
-yr : year (0: 2011, 1:2012)
-mnth : month ( 1 to 12)
-hr : hour (0 to 23)
-holiday : wether day is holiday or not (extracted from http://dchr.dc.gov/page/holiday-schedule)
-weekday : day of the week
-workingday : if day is neither weekend nor holiday is 1, otherwise is 0.
+### Data Description:
+
+1. instant: record index
+2. dteday : date
+3. season : season (1:springer, 2:summer, 3:fall, 4:winter)
+4. yr : year (0: 2011, 1:2012)
+5. mnth : month ( 1 to 12)
+6. hr : hour (0 to 23)
+7. holiday : wether day is holiday or not (extracted from http://dchr.dc.gov/page/holiday-schedule)
+8. weekday : day of the week
+9. workingday : if day is neither weekend nor holiday is 1, otherwise is 0.
 weathersit :
-1: Clear, Few clouds, Partly cloudy
-2: Mist + Cloudy, Mist + Broken clouds, Mist + Few clouds, Mist
-3: Light Snow, Light Rain + Thunderstorm + Scattered clouds, Light Rain + Scattered clouds
-4: Heavy Rain + Ice Pallets + Thunderstorm + Mist, Snow + Fog
-temp : Normalized temperature in Celsius. The values are divided to 41 (max)
-hum: Normalized humidity. The values are divided to 100 (max)
-windspeed: Normalized wind speed. The values are divided to 67 (max)
-casual: count of casual users
-registered: count of registered users
-cnt: count of total rental bikes including both casual and registered
+
+a) Clear, Few clouds, Partly cloudy
+
+b) Mist + Cloudy, Mist + Broken clouds, Mist + Few clouds, Mist
+
+c) Light Snow, Light Rain + Thunderstorm + Scattered clouds, Light Rain + Scattered clouds
+
+d)  Heavy Rain + Ice Pallets + Thunderstorm + Mist, Snow + Fog
+
+1. temp : Normalized temperature in Celsius. The values are divided to 41 (max)
+2. hum: Normalized humidity. The values are divided to 100 (max)
+3. windspeed: Normalized wind speed. The values are divided to 67 (max)
+4. casual: count of casual users
+5. registered: count of registered users
+6. cnt: count of total rental bikes including both casual and registered
 
 ## I) IMPORT LIBRARIES
 
-import tensorflow as tf
-import pandas as pd
-import numpy as np
-import seaborn as sns
-import matplotlib.pyplot as plt
 <p align="center">
-  <img src="NLP1.png">
+  <img src="Screenshot 2024-01-11 142847.png">
 </p>
 
 ## II) IMPORT DATASETS
 
 We will need to mount your drive using the following commands:
 
-<p align="center">
-  <img src="NLP1.png">
-</p>
 For more information regarding mounting, please check this out: https://stackoverflow.com/questions/46986398/import-data-into-google-colaboratory
-
 
 from google.colab import drive
 drive.mount('/content/drive')
-account_circle
+
+
 Mounted at /content/drive
 We have to include the full link to the csv file containing your dataset
-[ ]
-  1
+
 bike = pd.read_csv('/content/drive/My Drive/bike_sharing_daily.csv')
-[ ]
-  1
+
 bike
-account_circle
 
-[ ]
-  1
-bike.head(7)
+
 <p align="center">
-  <img src="NLP1.png">
+  <img src="Screenshot 2024-01-12 171329.png">
 </p>
 
-[ ]
-  1
-bike.tail(7)
-<p align="center">
-  <img src="NLP1.png">
-</p>
-
-[ ]
-  1
 bike.info()
-account_circle
-<class 'pandas.core.frame.DataFrame'>
-RangeIndex: 731 entries, 0 to 730
-Data columns (total 15 columns):
- #   Column      Non-Null Count  Dtype  
----  ------      --------------  -----  
- 0   instant     731 non-null    int64  
- 1   dteday      731 non-null    object 
- 2   season      731 non-null    int64  
- 3   yr          731 non-null    int64  
- 4   mnth        731 non-null    int64  
- 5   holiday     731 non-null    int64  
- 6   weekday     731 non-null    int64  
- 7   workingday  731 non-null    int64  
- 8   weathersit  731 non-null    int64  
- 9   temp        731 non-null    float64
- 10  hum         731 non-null    float64
- 11  windspeed   731 non-null    float64
- 12  casual      731 non-null    int64  
- 13  registered  731 non-null    int64  
- 14  cnt         731 non-null    int64  
-dtypes: float64(3), int64(11), object(1)
-memory usage: 85.8+ KB
-[ ]
-  1
-bike.describe()
 <p align="center">
-  <img src="NLP1.png">
+  <img src="Screenshot 2024-01-12 172215.png">
 </p>
 
 ## III) CLEAN UP DATASET
-[ ]
-  1
+
 sns.heatmap(bike.isnull())
 <p align="center">
-  <img src="NLP1.png">
+  <img src="Screenshot 2024-01-11 142826.png">
 </p>
 
-[ ]
-  1
 bike = bike.drop(labels = ['instant'], axis = 1)
-[ ]
-  1
-bike
+
 <p align="center">
-  <img src="NLP1.png">
+  <img src="Screenshot 2024-01-11 142736.png">
 </p>
 
 [ ]
