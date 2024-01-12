@@ -93,96 +93,79 @@ bike = bike.drop(labels = ['instant'], axis = 1)
   <img src="Screenshot 2024-01-11 142736.png">
 </p>
 
-[ ]
-  1
-bike = bike.drop(labels = ['casual', 'registered'], axis = 1)
-[ ]
-  1
-bike
-<p align="center">
-  <img src="NLP1.png">
-</p>
-
-[ ]
-  1
-bike.dteday = pd.to_datetime(bike.dteday, format = '%m/%d/%Y')
-[ ]
-  1
-bike
-<p align="center">
-  <img src="NLP1.png">
-</p>
-
-[ ]
-  1
 bike.index = pd.DatetimeIndex(bike.dteday)
-[ ]
-  1
+
 bike
 <p align="center">
-  <img src="NLP1.png">
+  <img src="Screenshot 2024-01-11 142547.png">
 </p>
 
-[ ]
-  1
-bike = bike.drop(labels = ['dteday'], axis = 1)
-[ ]
-  1
-bike
-account_circle
 
 ## IV) VISUALIZE DATASET
 
 bike['cnt'].asfreq('W').plot(linewidth = 3)
+
 plt.title('Bike Usage Per week')
+
 plt.xlabel('Week')
+
 plt.ylabel('Bike Rental')
+
 <p align="center">
-  <img src="NLP1.png">
+  <img src="Screenshot 2024-01-11 142521.png">
 </p>
 
 bike['cnt'].asfreq('M').plot(linewidth = 3)
+
 plt.title('Bike Usage Per Month')
+
 plt.xlabel('Month')
+
 plt.ylabel('Bike Rental')
-account_circle
+
+<p align="center">
+  <img src="Screenshot 2024-01-11 142459.png">
+</p>
 
 
 bike['cnt'].asfreq('Q').plot(linewidth = 3)
+
 plt.title('Bike Usage Per Quarter')
+
 plt.xlabel('Quarter')
+
 plt.ylabel('Bike Rental')
+
 <p align="center">
-  <img src="NLP1.png">
+  <img src="Screenshot 2024-01-11 142438.png">
 </p>
-[ ]
-  1
+
 sns.pairplot(bike)
 <p align="center">
-  <img src="NLP1.png">
+  <img src="Screenshot 2024-01-11 142257.png">
 </p>
 
-[ ]
-  1
+<p align="center">
+  <img src="Screenshot 2024-01-11 142413.png">
+</p>
+
 X_numerical = bike[['temp', 'hum', 'windspeed', 'cnt']]
-[ ]
-  1
+
 X_numerical
 <p align="center">
-  <img src="NLP1.png">
+  <img src="Screenshot 2024-01-11 142212.png">
 </p>
 
-[ ]
-  1
+
 sns.pairplot(X_numerical)
 <p align="center">
-  <img src="NLP1.png">
+  <img src="Screenshot 2024-01-12 180450.png">
 </p>
 [ ]
   1
 sns.heatmap(X_numerical.corr(), annot =True)
 <p align="center">
-  <img src="NLP1.png">
+  <img src="Screenshot 2024-01-11 142017.png">
 </p>
 
 ## V) CREATE TRAINING AND TESTING DATASET
