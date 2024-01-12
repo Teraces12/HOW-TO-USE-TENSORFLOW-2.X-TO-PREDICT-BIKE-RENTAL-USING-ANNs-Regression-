@@ -179,103 +179,80 @@ X_cat
   <img src="NLP1.png">
 </p>
 
-[ ]
-  1
-  2
-  3
+
 from sklearn.preprocessing import OneHotEncoder
 onehotencoder = OneHotEncoder()
 X_cat = onehotencoder.fit_transform(X_cat).toarray()
 [ ]
   1
 X_cat.shape
-account_circle
+
 (731, 32)
-[ ]
-  1
+
 X_cat = pd.DataFrame(X_cat)
-[ ]
-  1
+
 X_numerical
-account_circle
 
-[ ]
-  1
+
 X_numerical = X_numerical.reset_index()
-[ ]
-  1
+
 X_all = pd.concat([X_cat, X_numerical], axis = 1)
-[ ]
-  1
+
 X_all
 account_circle
 
-[ ]
-  1
+
 X_all = X_all.drop('dteday', axis = 1)
-[ ]
-  1
-X_all
-account_circle
 
-[ ]
-  1
-  2
+X_all
+
+
+
 X = X_all.iloc[:, :-1].values
 y = X_all.iloc[:, -1:].values
 [ ]
   1
 X.shape
-account_circle
+
 (731, 35)
-[ ]
-  1
+
 y.shape
-account_circle
+
 (731, 1)
-[ ]
-  1
-  2
-  3
+
 from sklearn.preprocessing import MinMaxScaler
 scaler = MinMaxScaler()
 y = scaler.fit_transform(y)
-[ ]
-  1
-  2
+
 from sklearn.model_selection import train_test_split
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size = 0.2)
-[ ]
-  1
+
 X_train.shape
-account_circle
+
 (584, 35)
-[ ]
-  1
+
 X_test.shape
-account_circle
+
 (147, 35)
+
 ## VI) TRAIN THE MODEL
-[ ]
-  1
-  2
-  3
-  4
-  5
-  6
+
 model = tf.keras.models.Sequential()
+
 model.add(tf.keras.layers.Dense(units=100, activation='relu', input_shape=(35, )))
+
 model.add(tf.keras.layers.Dense(units=100, activation='relu'))
+
 model.add(tf.keras.layers.Dense(units=100, activation='relu'))
+
 model.add(tf.keras.layers.Dense(units=1, activation='linear'))
 
-[ ]
-  1
+
 model.summary()
-account_circle
+
 Model: "sequential"
 _________________________________________________________________
- Layer (type)                Output Shape              Param #   
+ Layer (type)                Output Shape              Param    
 =================================================================
  dense (Dense)               (None, 100)               3600      
                                                                  
@@ -286,17 +263,18 @@ _________________________________________________________________
  dense_3 (Dense)             (None, 1)                 101       
                                                                  
 =================================================================
+
 Total params: 23,901
+
 Trainable params: 23,901
+
 Non-trainable params: 0
 _________________________________________________________________
-[ ]
-  1
+
 model.compile(optimizer='Adam', loss='mean_squared_error')
-[ ]
-  1
+
 epochs_hist = model.fit(X_train, y_train, epochs = 20, batch_size = 50, validation_split = 0.2)
-account_circle
+
 Epoch 1/20
 10/10 [==============================] - 1s 24ms/step - loss: 0.1408 - val_loss: 0.0675
 Epoch 2/20
@@ -337,83 +315,82 @@ Epoch 19/20
 10/10 [==============================] - 0s 5ms/step - loss: 0.0035 - val_loss: 0.0153
 Epoch 20/20
 10/10 [==============================] - 0s 7ms/step - loss: 0.0034 - val_loss: 0.0145
-## VII) EVALUATE THE MODEL
-[ ]
-  1
-epochs_hist.history.keys()
-account_circle
-dict_keys(['loss', 'val_loss'])
-[ ]
-  1
-  2
-  3
-  4
-  5
-  6
-plt.plot(epochs_hist.history['loss'])
-plt.plot(epochs_hist.history['val_loss'])
-plt.title('Model Loss Progress During Training')
-plt.xlabel('Epoch')
-plt.ylabel('Training and Validation Loss')
-plt.legend(['Training Loss', 'Validation Loss'])
-account_circle
 
-[ ]
-  1
-  2
-  3
-  4
-  5
+## VII) EVALUATE THE MODEL
+
+epochs_hist.history.keys()
+
+dict_keys(['loss', 'val_loss'])
+
+plt.plot(epochs_hist.history['loss'])
+
+plt.plot(epochs_hist.history['val_loss'])
+
+plt.title('Model Loss Progress During Training')
+
+plt.xlabel('Epoch')
+
+plt.ylabel('Training and Validation Loss')
+
+plt.legend(['Training Loss', 'Validation Loss'])
+
+<p align="center">
+  <img src="Screenshot 2024-01-11 141815.png">
+</p>
+
 y_predict = model.predict(X_test)
 plt.plot(y_test, y_predict, "^", color = 'g')
 plt.xlabel('Model Predictions')
 plt.ylabel('True Values')
 
-account_circle
+<p align="center">
+  <img src="Screenshot 2024-01-11 141758.png">
+</p>
 
-[ ]
-  1
-  2
-  3
+
 y_predict_orig = scaler.inverse_transform(y_predict)
 y_test_orig = scaler.inverse_transform(y_test)
 
-[ ]
-  1
-  2
-  3
-  4
+
 plt.plot(y_test_orig, y_predict_orig, "^", color = 'b')
 plt.xlabel('Model Predictions')
 plt.ylabel('True Values')
+<p align="center">
+  <img src="Screenshot 2024-01-11 141744.png">
+</p>
 
-account_circle
 
-[ ]
-123
 k = X_test.shape[1]
 n = len(X_test)
 n
-account_circle
+
 147
-[ ]
-12345678910111213
 
 
 from sklearn.metrics import r2_score, mean_squared_error, mean_absolute_error
+
 from math import sqrt
 
 RMSE = float(format(np.sqrt(mean_squared_error(y_test_orig, y_predict_orig)),'.3f'))
+
 MSE = mean_squared_error(y_test_orig, y_predict_orig)= 
+
 MAE = mean_absolute_error(y_test_orig, y_predict_orig)
+
 r2 = r2_score(y_test_orig, y_predict_orig)
+
 adj_r2 = 1-(1-r2)*(n-1)/(n-k-1)
 
-account_circle
 RMSE = 855.646 
+
 MSE = 732130.1093405469 
+
 MAE = 614.8364324245323 
+
 R2 = 0.805684986705684 
+
 Adjusted R2 = 0.744414487018287
-Author
-Lebede Ngartera
+
+
+## Author
+## Lebede Ngartera
