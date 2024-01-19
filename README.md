@@ -1,7 +1,20 @@
-# HOW TO USE TENSORFLOW 2.X TO PREDICT BIKE RENTAL USING ANNs (Regression)
+---
+title: "HOW TO USE TENSORFLOW 2.X TO PREDICT BIKE RENTAL USING ANNs (Regression)"
+author: "Dr LEBEDE  Ngartera"
+Update: "1--07--2024"
+output:
+  html_document:
+    toc: yes
+    number_sections: yes
+  pdf_document:
+    toc: yes
+---
 <p align="center">
-  <img src="Screenshot 2024-01-11 141555.png">
+  <img src="Screenshot 2024-01-11 141555.png"></b><br>
 </p>
+
+# HOW TO USE TENSORFLOW 2.X TO PREDICT BIKE RENTAL USING ANNs (Regression)
+
 
 ## 0) INTRODUCTION: PROJECT STATEMENT
 
